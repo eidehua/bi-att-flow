@@ -105,7 +105,8 @@ def main(_):
     config = flags.FLAGS
 
     config.out_dir = os.path.join(config.out_base_dir, config.model_name, str(config.run_id).zfill(2))
-
+    print(os.getcwd())
+    print(config.out_dir)
     m(config)
 
 if __name__ == "__main__":
