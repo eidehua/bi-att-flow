@@ -58,4 +58,5 @@ python job"
 
 cd ~/bi-att-flow/
 
-python -m basic.cli --mode train --noload --batch_size 25 --len_opt --cluster
+#python -m basic.cli --mode train --noload --batch_size 25 --len_opt --cluster
+python -m basic.cli --mode train --noload --num_gpus 3 --batch_size 20 --len_opt --cluster

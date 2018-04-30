@@ -18,9 +18,12 @@ def get_multi_gpu_models(config):
         print(gpu_idx)
         with tf.name_scope("model_{}".format(gpu_idx)) as scope, tf.device("/{}:{}".format(config.device_type, gpu_idx)):
             if gpu_idx > 0:
-                tf.variable_scope(tf.get_variable_scope(), reuse=tf.AUTO_REUSE)#tf.get_variable_scope().reuse_variables()
-            model = Model(config, scope, rep=gpu_idx == 0)
-            models.append(model)
+                with tf.variable_scope(tf.get_variable_scope(), reuse=tf.AUTO_REUSE):#tf.get_variable_scope().reuse_variables()
+                    model = Model(config, scope, rep=gpu_idx == 0)
+                    models.append(model)
+            else:
+                model = Model(config, scope, rep=gpu_idx == 0)
+                models.append(model)
     return models
 
 
