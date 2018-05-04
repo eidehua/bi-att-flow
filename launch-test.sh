@@ -58,4 +58,4 @@ python job"
 
 cd ~/bi-att-flow/
 
-python -m basic.cli --batch_size 20 --len_opt --cluster
+python -m basic.cli --batch_size 20 --len_opt --cluster --out_base_dir out-original

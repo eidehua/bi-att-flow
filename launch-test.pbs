@@ -2,9 +2,9 @@
 
 ### set the number of processing elements (PEs) or cores
 ### set the number of PEs per node
-#PBS -l nodes=16:ppn=1:xk
+#PBS -l nodes=2:ppn=1:xk
 ### set the wallclock time
-#PBS -l walltime=24:00:00
+#PBS -l walltime=1:00:00
 ### set the job name
 #PBS -N icl_image_caption_learn_test
 ### set the job stdout and stderr
@@ -53,7 +53,7 @@ NUM_PS_HOSTS=1
 #DO_TRAIN_VAL="--data_dir ${DATA_DIR}/train"
 #DO_TRAIN_VAL="--data_dir ${DATA_DIR}/validation --eval"
 
-HOST_NAMES=$(aprun -q -n ${PBS_NUM_NODES} -N ${PBS_NUM_PPN} -- hostname)
+HOST_NAMES=$(aprun -q -n 2 -N ${PBS_NUM_PPN} -- hostname)
 let PS_HOST_COUNT=0
 let WORKER_HOST_COUNT=0
 
@@ -87,7 +87,7 @@ RUN_ARGUMENTS="${WORKER_HOSTS_TASKS} ${PS_HOSTS_TASKS} ${DATA_DIR} ${TRAIN_DIR} 
 
 echo "Running $RUN_CMD $RUN_ARGUMENTS"
 
-aprun -b -n ${PBS_NUM_NODES} -N ${PBS_NUM_PPN} -- $RUN_CMD $RUN_ARGUMENTS \
+aprun -b -n 2 -N ${PBS_NUM_PPN} -- $RUN_CMD $RUN_ARGUMENTS \
     1> ~/logs/${PBS_JOBNAME}_${PBS_JOBID}.out \
     2> ~/logs/${PBS_JOBNAME}_${PBS_JOBID}.err
 echo "Done, thank you for flying."
